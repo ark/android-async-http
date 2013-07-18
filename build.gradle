@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven-publish'
 
 group 'com.loopj.android.http'
 version '1.4.4-SNAPSHOT'
@@ -27,4 +28,17 @@ android {
 
 task jar(type: Jar) {
     from android.sourceSets.main.java
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+           artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://$buildDir/../../ark/snapshots"
+        }
+    }
 }
